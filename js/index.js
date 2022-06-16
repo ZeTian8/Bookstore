@@ -1,31 +1,35 @@
 //轮播图操作
-function lunB(){
+function lunB() {
     let swiper = new Swiper(".mySwiper", {
         slidesPerView: 3,
         spaceBetween: 30,
-        autoplay:true,//自动播放
+        autoplay: true,//自动播放
         loop: true,//循环播放
         effect: 'coverflow',//3d播放
         pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-          dynamicBullets: true,
-          dynamicMainBullets: 3
+            el: ".swiper-pagination",
+            clickable: true,
+            dynamicBullets: true,
+            dynamicMainBullets: 3
         },
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
-          },
-      });
+        },
+        autoplay: {
+            disableOnInteraction: false,
+            delay: 2000,
+        },
+    });
 }
 lunB()
 //鼠标滑入滑出
-function hua(){
-    $('#Swip').mouseenter(()=>{
+function hua() {
+    $('#Swip').mouseenter(() => {
         $('.swiper-button-prev').show()
         $('.swiper-button-next').show()
     })
-    $('#Swip').mouseleave(()=>{
+    $('#Swip').mouseleave(() => {
         $('.swiper-button-prev').hide()
         $('.swiper-button-next').hide()
     })
