@@ -17,7 +17,7 @@
         <div id="nav-bar">
             <div id="nav-logo">三味书屋</div>
             <div id="nav-input">
-                <input type="text">
+                <input type="text" id="navInp">
                 <button> <img src="./img/31sousuo.svg" alt=""></button>
             </div>
             <div id="nav-book">
@@ -35,25 +35,8 @@
 
     <!-- Swiper轮播开始 -->
     <div class="swiper mySwiper" id="Swip">
+        <!-- 轮播 -->
         <div class="swiper-wrapper">
-            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
-                    alt=""></div>
-            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
-                    alt=""></div>
-            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
-                    alt=""></div>
-            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
-                    alt=""></div>
-            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
-                    alt=""></div>
-            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
-                    alt=""></div>
-            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
-                    alt=""></div>
-            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
-                    alt=""></div>
-            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
-                    alt=""></div>
         </div>
         <!-- 滚动点 -->
         <div class="swiper-pagination"></div>
@@ -67,27 +50,8 @@
             <p id="books-Icon"></p>
             <p id="books-Ranking">排行榜</p>
         </div>
+        <!-- 前五名 -->
         <div id="literature">
-            <div id="books-Literature">
-                <a href="#"></a>
-                <img src="./swiper-7.4.1/images/nature-2.jpg" alt="">
-            </div>
-            <div id="books-Literature">
-                <a href="#"></a>
-                <img src="./swiper-7.4.1/images/nature-2.jpg" alt="">
-            </div>
-            <div id="books-Literature">
-                <a href="#"></a>
-                <img src="./swiper-7.4.1/images/nature-2.jpg" alt="">
-            </div>
-            <div id="books-Literature">
-                <a href="#"></a>
-                <img src="./swiper-7.4.1/images/nature-2.jpg" alt="">
-            </div>
-            <div id="books-Literature">
-                <a href="#"></a>
-                <img src="./swiper-7.4.1/images/nature-2.jpg" alt="">
-            </div>
         </div>
     </div>
 
@@ -100,6 +64,7 @@
 
     <!-- Swiper JS -->
     <script src="./js/jquery.js"></script>
+    <script src="./js/axios.js"></script>
     <script src="./swiper-7.4.1/swiper/swiper-bundle.min.js"></script>
     <script src="./js/index.js"></script>
 
