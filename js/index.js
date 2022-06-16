@@ -36,4 +36,26 @@ function hua() {
 }
 hua()
 
+//layui组件
+function lay(){
+    layui.use('table', function(){
+        var table = layui.table;
+        
+        table.render({
+          elem: '#test'
+          ,url: 'http://localhost:3005/books?_page=1&_limit=10&_sort=id&_order=asc'
+          ,cols: [[
+            {field:'id', width:80, title: '书名', sort: true}
+            ,{field:'coverImg', width:80, title: '封面图'}
+            ,{field:'name', width:80, title: '作者',}
+            ,{field:'author', width:80, title: '简介', minWidth: 150,}
+            // ,{field:'desc', title: '评分',sort: true}
+            // ,{field:'experience', width:80, title: '操作', }
+          ]]
+          ,page: true
+        });
+      });
+}
+lay()
+
 

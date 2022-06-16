@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>management书籍管理</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./swiper-7.4.1/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+</head>
+
+<body>
+    <!-- 头部导航 -->
+    <div id="nav">
+        <div id="nav-bar">
+            <div id="nav-logo">三味书屋</div>
+            <div id="nav-input">
+                <input type="text">
+                <button> <img src="./img/31sousuo.svg" alt=""></button>
+            </div>
+            <div id="nav-book">
+                <p id="books">
+                    <img src="./img/shuji.svg" alt="">
+                <p id="shuji"> 书籍管理</p>
+                </p>
+                <p id="rank">
+                    <img src="./img/paihangbang.svg" alt="">
+                    <a href="#" id="paihang">排行榜</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="conment-management">
+        <div id="management">
+            <div id="layui-button">
+                <div>
+                    <button type="button" class="layui-btn  layui-btn-normal">新增</button>
+                    <button type="button" class="layui-btn  layui-btn-normal" id="layui-Excel">
+                        <img src="./img/xiazai.svg" alt="">
+                        <p>导出到Excel</p>
+                    </button>
+                </div>
+                <div id="layui-table">
+                    <table class="layui-hide" id="test"></table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+
+
+    <!-- 底部footer -->
+    <!-- <div id="footer">
+        <div>
+            © 2022 三味书屋 隐私政策 京ICP证080268号 京ICP备10005211号
+        </div>
+    </div> -->
+    <script src="./js/jquery.js"></script>
+    <script src="./layui/layui.js" charset="utf-8"></script>
+    <script src="./swiper-7.4.1/swiper/swiper-bundle.min.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
