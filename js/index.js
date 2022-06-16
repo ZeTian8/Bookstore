@@ -61,7 +61,7 @@ Lun()
 //下方排行榜接口
 async function Ranking(){
     try {
-        let data=await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=5')
+        let data=await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=4')
         console.log(data);
         for(let i=0;i<data.data.data.length;i++){
             let RankingObj=
