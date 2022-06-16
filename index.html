@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首页</title>
     <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./swiper-7.4.1/swiper/swiper-bundle.min.css">
+
 </head>
+
 <body>
     <div id="nav">
         <div id="nav-bar">
@@ -14,7 +18,7 @@
             <div id="nav-input">
                 <input type="text">
                 <button> <img src="./img/31sousuo.svg" alt=""></button>
-               
+
             </div>
             <div id="nav-book">
                 <p id="books"> 
@@ -28,5 +32,40 @@
             </div>
         </div>
     </div>
+
+    <!-- Swiper轮播开始 -->
+    <div class="swiper mySwiper" id="Swip">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
+                    alt=""></div>
+            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
+                    alt=""></div>
+            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
+                    alt=""></div>
+            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
+                    alt=""></div>
+            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
+                    alt=""></div>
+            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
+                    alt=""></div>
+            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
+                    alt=""></div>
+            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
+                    alt=""></div>
+            <div class="swiper-slide" id="Sw-content"><a href="#"></a><img src="./swiper-7.4.1/images/nature-3.jpg"
+                    alt=""></div>
+        </div>
+        <!-- 滚动点 -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev" id="button-prev"></div>
+        <div class="swiper-button-next" id="button-next"></div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="./js/jquery.js"></script>
+    <script src="./swiper-7.4.1/swiper/swiper-bundle.min.js"></script>
+    <script src="./js/index.js"></script>
+
 </body>
+
 </html>
