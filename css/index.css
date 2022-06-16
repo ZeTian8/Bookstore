@@ -165,3 +165,32 @@ a{
     /* margin: auto; */
 }
 
+/* 书籍详情介绍页· */
+#conset-details{
+    display: flex;
+    width: 90%;
+    height: 300px;
+    margin: auto;
+    margin-top: 45px ;
+    margin-bottom: 45px ;
+}
+#conset-details img{
+    width: 40% ;
+    height: 100%;
+    margin-right: 40px;
+}
+.diap{
+    padding: 10px 0 10px 0;
+    display: flex;
+}
+.diap p{
+    font-weight: 700;
+}
+.diap span{
+    padding-left: 20px;
+}
+#details-briefs p{
+    white-space: nowrap ;
+}
+
+

@@ -1,26 +1,50 @@
+//轮播图数据接口
+async function Lun(){
+    try {
+        let data=await axios.get('http://localhost:3005/books')
+        console.log(data);
+        for(let i=0;i<data.data.data.length;i++){
+            let LunObj=
+            `
+            <div class="swiper-slide" id="Sw-content">
+                <a href="#"></a>
+                <img src="${data.data.data[i].coverImg}"alt="">
+            </div>
+            `
+            $('.swiper-wrapper').append(LunObj)
+            
+        }
+       
+    } catch (error) {
+        console.log(error);
+    }
+}
+Lun()
 //轮播图操作
 function lunB() {
-    let swiper = new Swiper(".mySwiper", {
-        slidesPerView: 3,
-        spaceBetween: 30,
-        autoplay: true,//自动播放
-        loop: true,//循环播放
-        effect: 'coverflow',//3d播放
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-            dynamicBullets: true,
-            dynamicMainBullets: 3
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        autoplay: {
-            disableOnInteraction: false,
-            delay: 2000,
-        },
-    });
+        let swiper =new Swiper(".mySwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            autoplay: true,//自动播放
+            loop: true,//循环播放
+            effect: 'coverflow',//3d播放
+            observer: true,
+            observerParents: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                dynamicBullets: true,
+                dynamicMainBullets: 3
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                disableOnInteraction: false,
+                delay: 2000,
+            },
+        });
 }
 lunB()
 //轮播图鼠标滑入滑出显示导航
@@ -36,29 +60,9 @@ function hua(){
 }
 hua()
 
-//轮播图数据接口
-async function Lun(){
-    try {
-        let data=await axios.get('http://localhost:3005/books')
-        console.log(data);
-        for(let i=0;i<data.data.data.length;i++){
-            let LunObj=
-            `
-            <div class="swiper-slide" id="Sw-content">
-                <a href="#"></a>
-                <img src="${data.data.data[i].coverImg}"alt="">
-            </div>
-            `
-            $('.swiper-wrapper').append(LunObj)
-        }
-       
-    } catch (error) {
-        console.log(error);
-    }
-}
-Lun()
 
-//下方排行榜接口
+
+//首页下方排行榜接口
 async function Ranking(){
     try {
         let data=await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=4')
@@ -80,7 +84,7 @@ async function Ranking(){
 }
 Ranking()
 
-//头部搜索框接口
+//首页头部搜索框接口--------------
 async function NavInp(){
     try {
         let data=await axios.get('http://localhost:3005/books?name_like=三国')
@@ -102,7 +106,7 @@ async function NavInp(){
 }
 NavInp()
 
-//layui组件
+//layui组件-------------------
 function lay() {
     layui.use('table', function () {
         let table = layui.table;
@@ -304,7 +308,8 @@ function lay() {
 
 }
 lay()
-//
+
+//书籍详情接口函数
 
 
 
