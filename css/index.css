@@ -144,7 +144,7 @@ a{
     /* width: 90% !important; */
     margin-left: 40px;
 }
-#layui-button div{
+#layui-button{
     display: flex;
 }
 #layui-Excel{
