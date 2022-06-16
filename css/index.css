@@ -34,7 +34,7 @@ a{
     width: 60%;
 }
 #nav-input input{
-    width: 50%;
+    width: 80%;
     height: 30px;
     margin-top:15px;
     padding-left: 8px;
@@ -75,6 +75,7 @@ a{
 }
 /* 轮播图开始 */
 #Swip{
+    width: 90%;
  margin-top: 10px;
 }
 #Sw-content{
@@ -92,4 +93,48 @@ a{
 #button-prev,#button-next{
     display: none;
     color: #ccc;
+}
+/* 下方5本书排行 */
+#five-Books{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+#five-Books-Ranking{
+    line-height: 35px;
+    display: flex;
+    text-align: center;
+}
+#five-Books-Ranking #books-Icon{
+    width: 5px;
+    height: 35px;
+    background-color: rgb(36, 118, 195);
+}
+#five-Books-Ranking #books-Ranking{
+    font-size: 30px;
+    padding-left: 10px;
+}
+#literature{
+    display: flex;
+}
+#books-Literature{
+    width: 25%;
+    height: 200px;
+    text-align: center;
+    padding-top: 45px;
+}
+#books-Literature img{
+    width: 80%;
+    height: 80%;
+}
+/* 底部开始 */
+#footer{
+    width: 100%;
+    height: 150px;
+    background-color: black;
+}
+#footer div{
+    color: aliceblue;
+    text-align: center;
+    padding-top: 110px;
 }

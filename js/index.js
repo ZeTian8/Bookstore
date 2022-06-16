@@ -21,7 +21,6 @@ function lunB(){
 lunB()
 //鼠标滑入滑出
 function hua(){
-    // mouseleave 
     $('#Swip').mouseenter(()=>{
         $('.swiper-button-prev').show()
         $('.swiper-button-next').show()
@@ -32,3 +31,5 @@ function hua(){
     })
 }
 hua()
+
+
