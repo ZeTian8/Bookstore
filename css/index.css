@@ -73,6 +73,30 @@ a{
     line-height: 20px;
     padding-left: 20px;
 }
+.box {
+    z-index: 999;
+    position: absolute;
+
+    transform:translate(84%,87%);
+    background: #fff;
+    border-radius: .4em;
+    width: 400px;
+    padding-left: 10px;
+    margin: auto;
+    text-align: center;
+    color: black;
+    font-size: 15px;
+    box-shadow: 3px 5px 5px #656B79;
+    display: none;
+    
+}
+.box div{
+    display: flex;
+}
+.box p{
+    word-wrap:break-word;
+}
+
 /* 轮播图开始 */
 #Swip{
     width: 90%;

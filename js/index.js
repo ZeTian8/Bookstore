@@ -1,20 +1,46 @@
+//首页头部搜索框
+async function suo(){
+    $('#nav-input button').click(()=>{
+        alert(111)
+        $('.box').show()
+        try {
+            let {data:suoData}=await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=12')
+            for(let i=0;i<suoData.data.length;i++){
+                console.log(suoData.data);
+                // let suoObj=
+                // `<div>
+                //     <p>${suoData.data[i].name}</p> &nbsp;&nbsp;
+                //     <span>作者:
+                //         <span>${suoData.data[i].author}</span>
+                //     </span>
+                // </div>
+                // `
+                // $('.box').append(suoObj)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    })
+}
+suo()
+
 //轮播图数据接口
-async function Lun(){
+async function Lun() {
     try {
-        let data=await axios.get('http://localhost:3005/books')
+        let data = await axios.get('http://localhost:3005/books')
         console.log(data);
-        for(let i=0;i<data.data.data.length;i++){
-            let LunObj=
-            `
+        for (let i = 0; i < data.data.data.length; i++) {
+            let LunObj =
+                `
             <div class="swiper-slide" id="Sw-content">
                 <a href="#"></a>
                 <img src="${data.data.data[i].coverImg}"alt="">
             </div>
             `
             $('.swiper-wrapper').append(LunObj)
-            
+
         }
-       
+
     } catch (error) {
         console.log(error);
     }
@@ -22,34 +48,36 @@ async function Lun(){
 Lun()
 //轮播图操作
 function lunB() {
-        let swiper =new Swiper(".mySwiper", {
-            slidesPerView: 3,
-            spaceBetween: 30,
-            autoplay: true,//自动播放
-            loop: true,//循环播放
-            effect: 'coverflow',//3d播放
-            observer: true,
-            observerParents: true,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-                dynamicBullets: true,
-                dynamicMainBullets: 3
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            autoplay: {
-                disableOnInteraction: false,
-                delay: 2000,
-            },
-        });
+    let swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        autoplay: true,//自动播放
+        // loop: true,//循环播放
+        effect: 'coverflow',//3d播放
+        observer: true,
+        observerParents: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            dynamicBullets: true,
+            dynamicMainBullets: 3,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+            disableOnInteraction: false,
+            delay: 2000,
+            pauseOnMouseEnter: true,
+        },
+    });
+    
 }
 lunB()
 //轮播图鼠标滑入滑出显示导航
-function hua(){
-    $('#Swip').mouseenter(()=>{
+function hua() {
+    $('#Swip').mouseenter(() => {
         $('.swiper-button-prev').show()
         $('.swiper-button-next').show()
     })
@@ -60,16 +88,14 @@ function hua(){
 }
 hua()
 
-
-
 //首页下方排行榜接口
-async function Ranking(){
+async function Ranking() {
     try {
-        let data=await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=4')
+        let data = await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=4')
         console.log(data);
-        for(let i=0;i<data.data.data.length;i++){
-            let RankingObj=
-            `
+        for (let i = 0; i < data.data.data.length; i++) {
+            let RankingObj =
+                `
             <div id="books-Literature">
                 <a href="#"></a>
                 <img src="${data.data.data[i].coverImg}" alt="">
@@ -77,7 +103,7 @@ async function Ranking(){
             `
             $('#literature').append(RankingObj)
         }
-       
+
     } catch (error) {
         console.log(error);
     }
@@ -85,13 +111,13 @@ async function Ranking(){
 Ranking()
 
 //首页头部搜索框接口--------------
-async function NavInp(){
+async function NavInp() {
     try {
-        let data=await axios.get('http://localhost:3005/books?name_like=三国')
+        let data = await axios.get('http://localhost:3005/books?name_like=三国')
         console.log(data);
-        for(let i=0;i<data.data.data.length;i++){
-            let RankingObj=
-            `
+        for (let i = 0; i < data.data.data.length; i++) {
+            let RankingObj =
+                `
             <div id="books-Literature">
                 <a href="#"></a>
                 <img src="${data.data.data[i].coverImg}" alt="">
@@ -99,7 +125,7 @@ async function NavInp(){
             `
             $('#literature').append(RankingObj)
         }
-       
+
     } catch (error) {
         console.log(error);
     }
@@ -132,20 +158,22 @@ function lay() {
                 // ,{field:'desc', title: '评分',sort: true}
                 // ,{field:'experience', width:80, title: '操作', }
 
-                {type: 'checkbox', fixed: 'left'}
-                ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-                ,{field:'username', title:'用户名', width:120, edit: 'text'}
-                ,{field:'email', title:'邮箱', width:150, edit: 'text', templet: function(res){
-                    return '<em>'+ res.email +'</em>'
-                }}
-                ,{field:'sex', title:'性别', width:80, edit: 'text', sort: true}
-                ,{field:'city', title:'城市', width:100}
-                ,{field:'sign', title:'签名'}
-                ,{field:'experience', title:'积分', width:80, sort: true}
-                ,{field:'ip', title:'IP', width:120}
-                ,{field:'logins', title:'登入次数', width:100, sort: true}
-                ,{field:'joinTime', title:'加入时间', width:120}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                { type: 'checkbox', fixed: 'left' }
+                , { field: 'id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true }
+                , { field: 'username', title: '用户名', width: 120, edit: 'text' }
+                , {
+                    field: 'email', title: '邮箱', width: 150, edit: 'text', templet: function (res) {
+                        return '<em>' + res.email + '</em>'
+                    }
+                }
+                , { field: 'sex', title: '性别', width: 80, edit: 'text', sort: true }
+                , { field: 'city', title: '城市', width: 100 }
+                , { field: 'sign', title: '签名' }
+                , { field: 'experience', title: '积分', width: 80, sort: true }
+                , { field: 'ip', title: 'IP', width: 120 }
+                , { field: 'logins', title: '登入次数', width: 100, sort: true }
+                , { field: 'joinTime', title: '加入时间', width: 120 }
+                , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150 }
             ]]
             , page: true
             //   ,
@@ -309,8 +337,12 @@ function lay() {
 }
 lay()
 
-//书籍详情接口函数
+//书籍详情跳转未生效
+// $('#nav-book #books').click(function () {
+//     alert(11)
+//     $(location).attr('href', 'details.html');
 
+// })
 
 
 

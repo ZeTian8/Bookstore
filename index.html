@@ -16,6 +16,15 @@
     <div id="nav">
         <div id="nav-bar">
             <div id="nav-logo">三味书屋</div>
+            <div class="box">
+                <!-- <div>
+                    <p>2222</p> &nbsp;&nbsp;
+                    <span>作者:
+                        <span>11111</span>
+                    </span>
+                </div> -->
+
+            </div>
             <div id="nav-input">
                 <input type="text" id="navInp">
                 <button> <img src="./img/31sousuo.svg" alt=""></button>
@@ -23,11 +32,11 @@
             <div id="nav-book">
                 <p id="books">
                     <img src="./img/shuji.svg" alt="">
-                <p id="shuji"> 书籍管理</p>
+                    <a href="#" id="shuji"> 书籍管理</a>
                 </p>
                 <p id="rank">
-                    <img src="./img/paihangbang.svg" alt=""> 
-                    <a href="#" id="paihang">排行榜</a> 
+                    <img src="./img/paihangbang.svg" alt="">
+                    <a href="#" id="paihang">排行榜</a>
                 </p>
             </div>
         </div>
@@ -36,7 +45,7 @@
     <!-- Swiper轮播开始 -->
     <div class="swiper mySwiper" id="Swip">
         <!-- 轮播 -->
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper" circular="true">
         </div>
         <!-- 滚动点 -->
         <div class="swiper-pagination"></div>
@@ -64,6 +73,18 @@
 
     <!-- Swiper JS -->
     <script src="./js/jquery.js"></script>
+    <script>
+        //跳转书籍详情页
+        $('#nav-book #books').click(function () {
+            $(location).attr('href', 'details.html');
+        })
+        //跳转到排行榜页面
+        $('#nav-book #rank').click(function () {
+            alert(11)
+            $(location).attr('href', 'management.html');
+        })
+
+    </script>
     <script src="./js/axios.js"></script>
     <script src="./swiper-7.4.1/swiper/swiper-bundle.min.js"></script>
     <script src="./js/index.js"></script>
