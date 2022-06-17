@@ -76,8 +76,7 @@ a{
 .box {
     z-index: 999;
     position: absolute;
-
-    transform:translate(84%,87%);
+    transform:translate(85%,18%);
     background: #fff;
     border-radius: .4em;
     width: 400px;

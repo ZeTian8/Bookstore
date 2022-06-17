@@ -5,18 +5,19 @@
 //         $('.box').show()
 //         try {
 //             let {data:suoData}=await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=12')
-//             for(let i=0;i<suoData.data.length;i++){
-//                 console.log(suoData.data);
-//                 // let suoObj=
-//                 // `<div>
-//                 //     <p>${suoData.data[i].name}</p> &nbsp;&nbsp;
-//                 //     <span>作者:
-//                 //         <span>${suoData.data[i].author}</span>
-//                 //     </span>
-//                 // </div>
-//                 // `
-//                 // $('.box').append(suoObj)
-//             }
+//             console.log(suoData.data);
+//             // for(let i=0;i<suoData.data.length;i++){
+//             //     console.log(suoData.data);
+//             //     let suoObj=
+//             //     `<div>
+//             //         <p>${suoData.data[i].name}</p> &nbsp;&nbsp;
+//             //         <span>作者:
+//             //             <span>${suoData.data[i].author}</span>
+//             //         </span>
+//             //     </div>
+//             //     `
+//             //     $('.box').append(suoObj)
+//             // }
 //         } catch (error) {
 //             console.log(error);
 //         }
@@ -90,9 +91,11 @@ hua()
 
 //首页下方排行榜接口
 async function Ranking() {
+
     try {
         let data = await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=5')
         console.log(data);
+
         for (let i = 0; i < data.data.data.length; i++) {
             let RankingObj =
                 `
@@ -102,8 +105,28 @@ async function Ranking() {
             </div>
             `
             $('#literature').append(RankingObj)
-        }
+            //鼠标移入移出搜索按钮，显示隐藏
+            $('#nav-input button').mouseenter(() => {
+                $('.box').css('display', 'block')
+                let suoObj =
+                    `<div>
+                        <p>${data.data.data[i].name}</p> &nbsp;&nbsp;
+                        <span>作者:
+                            <span>${data.data.data[i].author}</span>
+                        </span>
+                    </div>
+                    `
+                $('.box').append(suoObj)
+            })
+            //鼠标移出搜索按钮
+            $('#nav-input button').mouseleave (()=>{
+                setTimeout(()=>{
+                    $('.box').hide()
+                    $('.box').empty()
+                },200)
+            })
 
+        }
     } catch (error) {
         console.log(error);
     }
