@@ -37,16 +37,6 @@ function hua() {
 hua()
 
 
-//layui组件
-// async function layUrl(){
-//     try {
-//         let  data=await axios.get('http://localhost:3005/books?_page=1&_limit=5&_sort=id&_order=asc')
-//         console.log(data.data);
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
-
 async function lay() {
     try {
         let  {data:layData}=await axios.get('http://localhost:3005/books?_page=1&_limit=5&_sort=id&_order=asc')
