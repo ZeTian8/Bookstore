@@ -1,28 +1,28 @@
-//首页头部搜索框
-async function suo(){
-    $('#nav-input button').click(()=>{
-        alert(111)
-        $('.box').show()
-        try {
-            let {data:suoData}=await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=12')
-            for(let i=0;i<suoData.data.length;i++){
-                console.log(suoData.data);
-                // let suoObj=
-                // `<div>
-                //     <p>${suoData.data[i].name}</p> &nbsp;&nbsp;
-                //     <span>作者:
-                //         <span>${suoData.data[i].author}</span>
-                //     </span>
-                // </div>
-                // `
-                // $('.box').append(suoObj)
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    })
-}
-suo()
+// //首页头部搜索框
+// async function suo(){
+//     $('#nav-input button').click(()=>{
+//         alert(111)
+//         $('.box').show()
+//         try {
+//             let {data:suoData}=await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=12')
+//             for(let i=0;i<suoData.data.length;i++){
+//                 console.log(suoData.data);
+//                 // let suoObj=
+//                 // `<div>
+//                 //     <p>${suoData.data[i].name}</p> &nbsp;&nbsp;
+//                 //     <span>作者:
+//                 //         <span>${suoData.data[i].author}</span>
+//                 //     </span>
+//                 // </div>
+//                 // `
+//                 // $('.box').append(suoObj)
+//             }
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     })
+// }
+// suo()
 
 //轮播图数据接口
 async function Lun() {
