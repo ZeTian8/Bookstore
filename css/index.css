@@ -164,4 +164,16 @@ a{
     width: 90%;
     /* margin: auto; */
 }
+.layui-table-cell{
+    height: 100px !important;
+    line-height: 100px !important;
+}
+th .layui-table-cell {
+    height: 30px !important;
+    line-height: 30px !important;
+}
+/* .layui-table img{
+    width: 100px !important;
+    height: 100px !important;
+} */
 
