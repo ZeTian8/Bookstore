@@ -23,7 +23,7 @@
             <div id="nav-book">
                 <p id="books">
                     <img src="./img/shuji.svg" alt="">
-                <p id="shuji"> 书籍管理</p>
+                    <p id="shuji"> 书籍管理</p>
                 </p>
                 <p id="rank">
                     <img src="./img/paihangbang.svg" alt="">
@@ -33,45 +33,42 @@
         </div>
     </div>
 
+    <!-- 书籍管理排行榜详情 -->
     <div id="conment-management">
         <div id="management">
             <div id="layui-button">
                 <button type="button" class="layui-btn  layui-btn-normal">新增</button>
-                <button type="button" class="layui-btn  layui-btn-normal" id="layui-Excel">
-                    <img src="./img/xiazai.svg" alt="">
-                    <p>导出到Excel</p>
-                </button>
-            </div>
-            <div class="layui-btn-group demoTable">
                 <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
                 <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
                 <button class="layui-btn" data-type="isAll">验证是否全选</button>
             </div>
-            <!-- <div id="layui-table"> -->
-            <table class="layui-hide" id="test" lay-filter="test"></table>
-            <!-- </div> -->
+            <!-- 书籍管理表格 -->
+            <table class="layui-hide " id="test" lay-filter="demo" ></table>
+           
+            <!-- 书籍管理排行榜返回顶部 -->
+            <div id="ding">
+                顶部
+            </div>
         </div>
     </div>
 
-
-
-
-    <!-- 底部footer -->
-    <!-- <div id="footer">
+    
+    <!--  底部footer -->
+    <div id="footer">
         <div>
             © 2022 三味书屋 隐私政策 京ICP证080268号 京ICP备10005211号
         </div>
-    </div> -->
+    </div>
     <script src="./js/jquery.js"></script>
-
+    <script src="./layui/layui.js" charset="utf-8"></script>
     <script src="./swiper-7.4.1/swiper/swiper-bundle.min.js" charset="utf-8"></script>
+    <!-- 书籍管理查看编辑删除 -->
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-      </script>
+   </script>
     <script src="./js/axios.js"></script>
-    <script src="./layui/layui.js" charset="utf-8"></script>
     <script src="./js/index.js"></script>
 </body>
 
