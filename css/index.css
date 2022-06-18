@@ -5,6 +5,9 @@
 }
 a{
     text-decoration:none;
+    /* color: aliceblue; */
+}
+#paihang{
     color: aliceblue;
 }
 #nav{
@@ -176,4 +179,22 @@ th .layui-table-cell {
     width: 100px !important;
     height: 100px !important;
 } */
+/* 返回顶部 */
+#ding{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border:1px solid aqua;
+    position: absolute;
+    right: 40px;
+    bottom: -245px;
+    text-align: center;
+    line-height: 40px;
+    background-color: aqua;
+}
+#conment-management{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
 

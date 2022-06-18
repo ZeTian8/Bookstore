@@ -36,7 +36,7 @@ function hua() {
 }
 hua()
 
-
+// 书籍管理排行榜封装函数
 async function lay() {
     try {
         let { data: layData } = await axios.get('http://localhost:3005/books?_page=1&_limit=89&_sort=id&_order=asc')
@@ -55,37 +55,41 @@ async function lay() {
                     , icon: 'layui-icon-tips'
                 }]
                 , cols: [[
-                    {type: 'checkbox', fixed: 'left'},
-                    { field: 'name', width: 120, title: '书名', sort: true,}
-                    , { 
-                        field: 'coverImg', title: '封面图',  width: 120,
-                        edit:'test', templet: function (d) {
+                    { type: 'checkbox', fixed: 'left' },
+                    { field: 'name', width: 120, title: '书名', sort: true, }
+                    , {
+                        //图片
+                        field: 'coverImg', title: '封面图', width: 120,
+                        edit: 'test', templet: function (d) {
                             return `<img src=" ${d.coverImg}" alt="">`
-                        }}
+                        }
+                    }
                     , { field: 'author', width: 80, title: '作者', }
-                    , { field: 'desc', title: '简介', minWidth: 150,}
-                    , { field: 'tate', title: '评分', sort: true ,
-                      templet: function (d){
-                        let index = d.LAY_INDEX;
-                        layui.use('rate', function () {
-                            // console.log(d.rate);
-                            var rate = layui.rate;
-                            //渲染
-                            let obj = {}
-                            var ins1 = rate.render({
-                                elem: '.bookXing' + index  //绑定元素
-                                , length: 10//长度
-                                , half: true//开启半星
-                                , value: d.rate//初始值
-                                , readonly: true//禁止修改
+                    , { field: 'desc', title: '简介', minWidth: 150, }
+                    , {
+                        field: 'tate', title: '评分', sort: true,
+                        templet: function (d) {
+                            let index = d.LAY_INDEX;
+                            layui.use('rate', function () {
+                                // console.log(d.rate);
+                                var rate = layui.rate;
+                                //渲染
+                                let obj = {}
+                                var ins1 = rate.render({
+                                    elem: '.bookXing' + index  //绑定元素
+                                    , length: 10//长度
+                                    , text: true//开启分数显示
+                                    , half: true//开启半星
+                                    , value: d.rate//初始值
+                                    , readonly: true//禁止修改
+                                });
                             });
-                        });
-                        index++;
-                        return `<div class = "bookXing${index}"></div>`
-                      }
+                            index++;
+                            return `<div class = "bookXing${index}"></div>`
+                        }
                     }
                     , { field: 'experience', width: 180, title: '操作', toolbar: '#barDemo' }
-                    
+
                 ]]
                 , page: true
                 , response: {
@@ -98,56 +102,59 @@ async function lay() {
                 , limit: 5 //每页默认显示的数量
                 , data: layData.data
             });
-    
-            //头工具栏事件
-            table.on('toolbar(test)', function (obj) {
-                var checkStatus = table.checkStatus(obj.config.id);
-                // data = checkStatus.data; //获取选中的数据
-                switch (obj.event) {
-                    case 'add':
-                        layer.msg('添加');
-                        break;
-                    case 'getCheckData':
-                        var data = checkStatus.data;
-                        layer.alert(JSON.stringify(data));
-                        break;
-                    case 'getCheckLength':
-                        var data = checkStatus.data;
-                        layer.msg('选中了：' + data.length + ' 个');
-                        break;
-                    case 'isAll':
-                        layer.msg(checkStatus.isAll ? '全选' : '未全选');
-                        break;
 
-                    //自定义头工具栏右侧图标 - 提示
-                    case 'LAYTABLE_TIPS':
-                        layer.alert('这是工具栏右侧自定义的一个图标按钮');
-                        break;
-                };
-                //监听行工具事件
-        //         table.on('tool(test)', function (obj) {
-        //             var data = obj.data;
-        //             //console.log(obj)
-        //             if (obj.event === 'del') {
-        //                 layer.confirm('真的删除行么', function (index) {
-        //                     obj.del();
-        //                     layer.close(index);
-        //                 });
-        //             } else if (obj.event === 'edit') {
-        //                 layer.prompt({
-        //                     formType: 2
-        //                     , value: data.email
-        //                 }, function (value, index) {
-        //                     obj.update({
-        //                         email: value
-        //                     });
-        //                     layer.close(index);
-        //                 });
-        //             }
-        //         })
+            //监听表格复选框选择
+            table.on('checkbox(demo)', function (obj) {
+                console.log(obj)
             });
 
+            // case 'add':
+            //     layer.msg('添加');
+            //     break;
 
+            //监听工具条
+            table.on('tool(demo)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'detail') {
+                    layer.msg('ID：' + data.id + ' 的查看操作');
+                } else if (obj.event === 'del') {
+
+                    layer.confirm('真的删除行么', function (index) {
+                        axios.delete('http://localhost:3005/books/'
+                        +data.id).then(data=>{
+                            console.log(data);
+                        })
+                        obj.del();
+                        layer.msg("删除成功")
+                        layer.close(index);
+                    });
+
+                } else if (obj.event === 'edit') {
+                    layer.alert('编辑行：<br>' + JSON.stringify(data))
+                }
+            });
+
+            var $ = layui.$, active = {
+                getCheckData: function () { //获取选中数据
+                    var checkStatus = table.checkStatus('idTest')
+                        , data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                }
+                , getCheckLength: function () { //获取选中数目
+                    var checkStatus = table.checkStatus('idTest')
+                            , data = checkStatus.data;
+                        layer.msg('选中了：' + data.length + ' 个');
+                    }
+                    , isAll: function () { //验证是否全选
+                        var checkStatus = table.checkStatus('idTest');
+                        layer.msg(checkStatus.isAll ? '全选' : '未全选')
+                    }
+                };
+
+                $('.demoTable .layui-btn').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
         });
 
 
@@ -157,7 +164,34 @@ async function lay() {
 
 }
 lay()
-//
+
+//书籍管理排行榜回到顶部
+function Din(){
+    $('#ding').click(function(){
+        window.scrollTo(0, 2000);
+        // 设置滚动行为改为平滑的滚动
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    })
+}
+Din()
+//书籍管理点击头部导航三味书屋回到主页
+function navLogoM(){
+    //点击回到主页
+    $('#nav-logo').click(function(){
+        alert(11)
+        window.location.href='file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/index.html'
+    })
+    //点击回到书籍管理页
+    $('#nav-book #books').click(function(){
+        alert(11)
+        window.location.href='file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/management.html'
+    })
+}
+navLogoM()
+
 
 
 
