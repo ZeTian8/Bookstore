@@ -1,29 +1,42 @@
 // //首页头部搜索框
 // async function suo(){
-//     $('#nav-input button').click(()=>{
-//         alert(111)
-//         $('.box').show()
+// //鼠标聚焦
+// $('#nav-input button').click(() => {
+//     // alert(111)
+//     // $('.boxInput').show()
+//     async function suo() {
 //         try {
-//             let {data:suoData}=await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=12')
+//             let { data:suoData } = await axios({
+//                 method: "get",
+//                 url: "http://localhost:3005/books",
+//                 params: {
+//                     name_like: $("#nav-input").val(),
+//                 },
+//             })
 //             console.log(suoData.data);
-//             // for(let i=0;i<suoData.data.length;i++){
-//             //     console.log(suoData.data);
+//             $('.boxInput').text($('#navInp').val())
+
+
+//             // for(let i=0;i<suoData.length;i++){
+//             //     console.log(suoData);
 //             //     let suoObj=
 //             //     `<div>
-//             //         <p>${suoData.data[i].name}</p> &nbsp;&nbsp;
+//             //         <p>${suoData[i].name}</p> &nbsp;&nbsp;
 //             //         <span>作者:
-//             //             <span>${suoData.data[i].author}</span>
+//             //             <span>${suoData[i].author}</span>
 //             //         </span>
 //             //     </div>
 //             //     `
-//             //     $('.box').append(suoObj)
+//             //     $('.boxInput').append(suoObj)
 //             // }
 //         } catch (error) {
 //             console.log(error);
 //         }
-//     })
+//     }
+//     // suo()
+// })
 // }
-// suo()
+
 
 //轮播图数据接口
 async function Lun() {
@@ -89,12 +102,18 @@ function hua() {
 }
 hua()
 
-//首页下方排行榜接口
+//点击每一张图片跳转详情页面
+// async function img(){
+
+// }
+// img()
+
+//首页下方排行榜接口,鼠标移入移出搜索按钮，显示隐藏
 async function Ranking() {
 
     try {
         let data = await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=5')
-        console.log(data);
+        // console.log(data);
 
         for (let i = 0; i < data.data.data.length; i++) {
             let RankingObj =
@@ -105,26 +124,47 @@ async function Ranking() {
             </div>
             `
             $('#literature').append(RankingObj)
-            //鼠标移入移出搜索按钮，显示隐藏
-            $('#nav-input button').mouseenter(() => {
-                $('.box').css('display', 'block')
-                let suoObj =
-                    `<div>
-                        <p>${data.data.data[i].name}</p> &nbsp;&nbsp;
-                        <span>作者:
-                            <span>${data.data.data[i].author}</span>
-                        </span>
-                    </div>
-                    `
-                $('.box').append(suoObj)
-            })
-            //鼠标移出搜索按钮
-            $('#nav-input button').mouseleave (()=>{
-                setTimeout(()=>{
-                    $('.box').hide()
-                    $('.box').empty()
-                },200)
-            })
+
+            //鼠标点击搜索按钮，显示隐藏
+            if ($('#navInp').val('')) {
+                $('#nav-input button').click(() => {
+                    $('.boxInput').show()
+                    let { data: suoData } = await axios({
+                        method: "get",
+                        url: "http://localhost:3005/books",
+                        params: {
+                            name_like: $("#nav-input").val(),
+                        },
+                    })
+
+                    console.log(suoData.data);
+                    $('.boxInput').text($('#navInp').val())
+
+                })
+
+
+            } else if ($('#navInp').val()) {
+                $('#nav-input button').click(() => {
+                    $('.box').css('display', 'block')
+                    let suoObj =
+                        `<div>
+                            <p>${data.data.data[i].name}</p> &nbsp;&nbsp;
+                            <span>作者:
+                                <span>${data.data.data[i].author}</span>
+                            </span>
+                        </div>
+                        `
+                    $('.box').append(suoObj)
+                })
+                //鼠标移出搜索按钮
+                $('#nav-input button').mouseleave(() => {
+                    setTimeout(() => {
+                        $('.box').hide()
+                        $('.box').empty()
+                    }, 200)
+                })
+            }
+
 
         }
     } catch (error) {
@@ -215,11 +255,11 @@ async function lay() {
                     layer.msg('ID：' + data.id + ' 的查看操作');
                 } else if (obj.event === 'del') {
 
-                    layer.confirm('真的删除行么', function (index) {
+                    layer.confirm('确定删除这本书吗?', function (index) {
                         axios.delete('http://localhost:3005/books/'
-                        +data.id).then(data=>{
-                            console.log(data);
-                        })
+                            + data.id).then(data => {
+                                console.log(data);
+                            })
                         obj.del();
                         layer.msg("删除成功")
                         layer.close(index);
@@ -238,19 +278,19 @@ async function lay() {
                 }
                 , getCheckLength: function () { //获取选中数目
                     var checkStatus = table.checkStatus('idTest')
-                            , data = checkStatus.data;
-                        layer.msg('选中了：' + data.length + ' 个');
-                    }
-                    , isAll: function () { //验证是否全选
-                        var checkStatus = table.checkStatus('idTest');
-                        layer.msg(checkStatus.isAll ? '全选' : '未全选')
-                    }
-                };
+                        , data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                }
+                , isAll: function () { //验证是否全选
+                    var checkStatus = table.checkStatus('idTest');
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
+                }
+            };
 
-                $('.demoTable .layui-btn').on('click', function () {
-                    var type = $(this).data('type');
-                    active[type] ? active[type].call(this) : '';
-                });
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
         });
 
 
@@ -262,8 +302,8 @@ async function lay() {
 lay()
 
 //书籍管理排行榜回到顶部
-function Din(){
-    $('#ding').click(function(){
+function Din() {
+    $('#ding').click(function () {
         window.scrollTo(0, 2000);
         // 设置滚动行为改为平滑的滚动
         window.scrollTo({
@@ -274,16 +314,20 @@ function Din(){
 }
 Din()
 //书籍管理点击头部导航三味书屋回到主页
-function navLogoM(){
+function navLogoM() {
     //点击回到主页
-    $('#nav-logo').click(function(){
+    $('#nav-logo').click(function () {
         alert(11)
-        window.location.href='file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/index.html'
+        window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/index.html'
     })
     //点击回到书籍管理页
-    $('#nav-book #books').click(function(){
+    $('#nav-book #books').click(function () {
         alert(11)
-        window.location.href='file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/management.html'
+        window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/management.html'
+    })
+    $('#rank').click(function () {
+        alert(11)
+        window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/details.html'
     })
 }
 navLogoM()

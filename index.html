@@ -16,15 +16,10 @@
     <div id="nav">
         <div id="nav-bar">
             <div id="nav-logo">三味书屋</div>
-            <div class="box">
-                <!-- <div>
-                    <p>2222</p> &nbsp;&nbsp;
-                    <span>作者:
-                        <span>11111</span>
-                    </span>
-                </div> -->
-
-            </div>
+            <!-- 鼠标聚焦input的显示的盒子 -->
+            <div class="boxInput"></div>
+            <!-- 按钮显示隐藏的盒子 -->
+            <div class="box"></div>
             <div id="nav-input">
                 <input type="text" id="navInp">
                 <button > <img src="./img/31sousuo.svg" alt=""></button>
@@ -75,14 +70,14 @@
     <script src="./js/jquery.js"></script>
     <script>
         //跳转书籍详情页
-        $('#nav-book #books').click(function () {
-            $(location).attr('href', 'details.html');
-        })
-        //跳转到排行榜页面
-        $('#nav-book #rank').click(function () {
-            alert(11)
-            $(location).attr('href', 'management.html');
-        })
+        // $('#nav-book #books').click(function () {
+        //     $(location).attr('href', 'details.html');
+        // })
+        // //跳转到排行榜页面
+        // $('#nav-book #rank').click(function () {
+        //     alert(11)
+        //     $(location).attr('href', 'management.html');
+        // })
 
     </script>
     <script src="./js/axios.js"></script>
