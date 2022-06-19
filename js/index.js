@@ -175,7 +175,7 @@ async function xiang() {
         console.log(dataX.data);
         for (let i = 0; i < dataX.data.length; i++) {
             $('#Swip img').eq(i).click(() => {
-                // window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/details.html'
+                window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/details.html'
                 dataXY()
                 async function dataXY(){
                     console.log(dataX.data[i].id);
@@ -188,7 +188,7 @@ async function xiang() {
                     })
                     console.log(dataY.data[i].id);
                     if (dataX.data[i].id==dataY.data[i].id) {
-                         window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/details.html'
+                        //  window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/details.html'
 
                          let dataYObj=
                          `
