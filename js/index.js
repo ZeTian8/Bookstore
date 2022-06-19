@@ -42,7 +42,7 @@
 async function Lun() {
     try {
         let data = await axios.get('http://localhost:3005/books')
-        console.log(data);
+        // console.log(data);
         for (let i = 0; i < data.data.data.length; i++) {
             let LunObj =
                 `
@@ -52,7 +52,6 @@ async function Lun() {
             </div>
             `
             $('.swiper-wrapper').append(LunObj)
-
         }
 
     } catch (error) {
@@ -102,11 +101,7 @@ function hua() {
 }
 hua()
 
-//点击每一张图片跳转详情页面
-// async function img(){
 
-// }
-// img()
 
 //首页下方排行榜接口,鼠标移入移出搜索按钮，显示隐藏
 async function Ranking() {
@@ -126,44 +121,44 @@ async function Ranking() {
             $('#literature').append(RankingObj)
 
             //鼠标点击搜索按钮，显示隐藏
-            if ($('#navInp').val('')) {
-                $('#nav-input button').click(() => {
-                    $('.boxInput').show()
-                    let { data: suoData } = await axios({
-                        method: "get",
-                        url: "http://localhost:3005/books",
-                        params: {
-                            name_like: $("#nav-input").val(),
-                        },
-                    })
+            // if ($('#navInp').val('')) {
+            //     $('#nav-input button').click(() => {
+            //         $('.boxInput').show()
+            //         let { data: suoData } = await axios({
+            //             method: "get",
+            //             url: "http://localhost:3005/books",
+            //             params: {
+            //                 name_like: $("#nav-input").val(),
+            //             },
+            //         })
 
-                    console.log(suoData.data);
-                    $('.boxInput').text($('#navInp').val())
+            //         console.log(suoData.data);
+            //         $('.boxInput').text($('#navInp').val())
 
-                })
+            //     })
 
 
-            } else if ($('#navInp').val()) {
-                $('#nav-input button').click(() => {
-                    $('.box').css('display', 'block')
-                    let suoObj =
-                        `<div>
-                            <p>${data.data.data[i].name}</p> &nbsp;&nbsp;
-                            <span>作者:
-                                <span>${data.data.data[i].author}</span>
-                            </span>
-                        </div>
-                        `
-                    $('.box').append(suoObj)
-                })
-                //鼠标移出搜索按钮
-                $('#nav-input button').mouseleave(() => {
-                    setTimeout(() => {
-                        $('.box').hide()
-                        $('.box').empty()
-                    }, 200)
-                })
-            }
+            // } else if ($('#navInp').val()) {
+            // $('#nav-input button').click(() => {
+            //     $('.box').css('display', 'block')
+            //     let suoObj =
+            //         `<div>
+            //             <p>${data.data.data[i].name}</p> &nbsp;&nbsp;
+            //             <span>作者:
+            //                 <span>${data.data.data[i].author}</span>
+            //             </span>
+            //         </div>
+            //         `
+            //     $('.box').append(suoObj)
+            // })
+            // //鼠标移出搜索按钮
+            // $('#nav-input button').mouseleave(() => {
+            //     setTimeout(() => {
+            //         $('.box').hide()
+            //         $('.box').empty()
+            //     }, 200)
+            // })
+            // }
 
 
         }
@@ -172,6 +167,61 @@ async function Ranking() {
     }
 }
 Ranking()
+
+//点击图片，跳转详情页页面
+async function xiang() {
+    try {
+        let { data: dataX } = await axios.get('http://localhost:3005/books')
+        console.log(dataX.data);
+        for (let i = 0; i < dataX.data.length; i++) {
+            $('#Swip img').eq(i).click(() => {
+                // window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/details.html'
+                dataXY()
+                async function dataXY(){
+                    console.log(dataX.data[i].id);
+                    let { data: dataY } = await axios({
+                        method: "get",
+                        url: "http://localhost:3005/books",
+                        params: {
+                            id: dataX.data[i].id,
+                        },
+                    })
+                    console.log(dataY.data[i].id);
+                    if (dataX.data[i].id==dataY.data[i].id) {
+                         window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/details.html'
+
+                         let dataYObj=
+                         `
+                         <img src="${dataY.data[i].coverImg}" alt="">
+                         <div id="details">
+                             <div id="details-book" class="diap">
+                                 <p>书名:</p> &nbsp;
+                                 <span>${dataY.data[i].name}</span>
+                             </div>
+                             <div id="details-author" class="diap">
+                                 <p>作者:</p> &nbsp;
+                                 <span>${dataY.data[i].author}</span>
+                             </div>
+                             <div id="details-briefs" class="diap">
+                                 <p>简介:</p>&nbsp;
+                                 <span>${dataY.data[i].desc}</span>
+                             </div>
+                             <div id="details-evaluate" class="diap">
+                                 <p>评价:</p> &nbsp;
+                                 <span>${dataY.data[i].rate}</span>
+                             </div>
+                         </div>
+                         `
+                         $('#conset-details').append(dataYObj)
+                    }
+                }
+            })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+xiang()
 
 //layui组件-------------------
 async function lay() {
