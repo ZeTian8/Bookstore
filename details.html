@@ -8,6 +8,7 @@
     <title>details书籍详情</title>
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./swiper-7.4.1/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all">
 </head>
 
 <body>
@@ -67,6 +68,7 @@
     <script src="./layui/layui.js"></script>
     <script src="./swiper-7.4.1/swiper/swiper-bundle.min.js"></script>
     <script src="./js/index.js"></script>
+    <!-- 渲染详情页 -->
     <script>
         // //渲染详情页
         let params = new URLSearchParams(location.search)
@@ -99,11 +101,23 @@
             </div>
             <div id="details-evaluate" class="diap">
                 <p>评价:</p> &nbsp;
-                <span>${parId.data.data[0].rate}</span>
+                <span class="test1">${parId.data.data[0].rate}</span>
             </div>
         </div>
         `
                 $('#conset-details').append(dataYObj)
+                layui.use('rate', function () {
+                    var rate = layui.rate;
+                    //渲染
+                    var ins1 = rate.render({
+                        elem: '.test1'//绑定元素
+                        , length: 10//长度
+                        , text: true//开启分数显示
+                        , half: true//开启半星
+                        , value: parId.data.data[0].rate//初始值
+                        // , readonly: true//禁止修改
+                    });
+                });
             } catch (error) {
                 console.log(error);
             }

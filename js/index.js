@@ -45,7 +45,7 @@ async function Lun() {
         // console.log(data);
         for (let i = 0; i < data.data.data.length; i++) {
             let LunObj =
-            `
+                `
             <div class="swiper-slide" id="Sw-content">
                 <a href="#"></a>
                 <img src="${data.data.data[i].coverImg}"alt="">
@@ -120,23 +120,36 @@ async function Ranking() {
             $('#literature').append(RankingObj)
 
             //鼠标点击搜索按钮，显示隐藏
-            // if ($('#navInp').val('')) {
-            //     $('#nav-input button').click(() => {
-            //         $('.boxInput').show()
-            //         let { data: suoData } = await axios({
-            //             method: "get",
-            //             url: "http://localhost:3005/books",
-            //             params: {
-            //                 name_like: $("#nav-input").val(),
-            //             },
+
+            // $('#navInp').focus(function(){
+            //     if (!$('#navInp').val('')) {
+            //         $('#nav-input button').click(() =>{
+            //             console.log(111);
             //         })
 
-            //         console.log(suoData.data);
-            //         $('.boxInput').text($('#navInp').val())
+            //     }else{
+            //         $('#nav-input button').click(() =>{
+            //             console.log(222);
+            //         })
+            //     }
+            // })
 
+
+
+            // if ($('#navInp').val('')) {
+            // $('#nav-input button').click(() => {
+            //     // $('.boxInput').show()
+            //     let { data: suoData } = await axios({
+            //         method: "get",
+            //         url: "http://localhost:3005/books",
+            //         params: {
+            //             name_like: $("#navInp").val(),
+            //         },
             //     })
+            //     console.log(suoData.data);
+            //     $('.boxInput').text($('#navInp').val())
 
-
+            // })
             // } else if ($('#navInp').val()) {
             // $('#nav-input button').click(() => {
             //     $('.box').css('display', 'block')
@@ -159,7 +172,6 @@ async function Ranking() {
             // })
             // }
 
-
         }
     } catch (error) {
         console.log(error);
@@ -168,20 +180,20 @@ async function Ranking() {
 Ranking()
 
 //点击图片，跳转详情页页面
-async function xiang(a,url) {
+async function xiang(a, url) {
     try {
         // let { data: dataX } = await axios.get('http://localhost:3005/books')
         let { data: dataX } = await axios({
             method: "get",
             url: url,
             params: {
-                
+
             }
         })
         // .get('http://localhost:3005/books')
         console.log(dataX.data);
-        for(let i=0;i<dataX.data.length;i++){
-            $(a).eq(i).click(() =>{
+        for (let i = 0; i < dataX.data.length; i++) {
+            $(a).eq(i).click(() => {
                 console.log(dataX.data[i].id);
                 location.href = `details.html?id=${dataX.data[i].id}`
             })
@@ -191,10 +203,33 @@ async function xiang(a,url) {
     }
 }
 //轮播图渲染详情页
-xiang(('#Swip img'),'http://localhost:3005/books')
+xiang(('#Swip img'), 'http://localhost:3005/books')
 //首页底部排行榜渲染详情页
-xiang(('#literature img'),'http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=5')
+xiang(('#literature img'), 'http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=5')
+//搜索框渲染
+function sou() {
+    $('#nav-input button').click(async () => {
+        try {
+            let suoData = await axios({
+                method: "get",
+                url: 'http://localhost:3005/books',
+                params: {
+                    name_like: $('#navInp').val()
+                }
+            })
+            let suoObj =
+                `
+            <a>${suoData.data.data[0].name} 作者：${suoData.data.data[0].author}</a>
+            `
+            $('.boxInput').append(suoObj)
+            $('.boxInput').show()
+            xiang(('.boxInput'), `http://localhost:3005/books?name_like=${suoData.data.data[0].name}`)
+        } catch (error) {
+            console.log(error);
+        }
 
+    })
+}
 
 //layui组件-------------------
 async function lay() {

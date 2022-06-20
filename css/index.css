@@ -5,7 +5,7 @@
 }
 a{
     text-decoration:none;
-    color: aliceblue;
+    color: aliceblue !important;
 }
 #paihang{
     color: aliceblue;
@@ -100,28 +100,20 @@ a{
 }
 .boxInput{
     width: 300px;
-    height: 50px;
     z-index: 1001;
     position: absolute;
     top: 50px;
     left: 400px;
-    /* transform:translate(85%,18%); */
     background-color: #fff;
     border-radius: .4em;
     padding-left: 10px;
-    margin: auto;
-    text-align: center;
     color: black;
     font-size: 15px;
     box-shadow: 3px 5px 5px #656B79;
-    /* display: none; */
-    
+    display: none;
 }
-.boxInput div{
-    display: flex;
-}
-.boxInput p{
-    word-wrap:break-word;
+.boxInput a{
+    color: black !important;
 }
 /* 轮播图开始 */
 #Swip{
