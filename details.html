@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,9 +9,10 @@
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./swiper-7.4.1/swiper/swiper-bundle.min.css">
 </head>
+
 <body>
-     <!-- 头部导航 -->
-     <div id="nav">
+    <!-- 头部导航 -->
+    <div id="nav">
         <div id="nav-bar">
             <div id="nav-logo">三味书屋</div>
             <div id="nav-input">
@@ -20,11 +22,11 @@
             <div id="nav-book">
                 <p id="books">
                     <img src="./img/shuji.svg" alt="">
-                     <p id="shuji"> 书籍管理</p>
+                <p id="shuji"> 书籍管理</p>
                 </p>
                 <p id="rank">
-                    <img src="./img/paihangbang.svg" alt=""> 
-                    <a href="#" id="paihang">排行榜</a> 
+                    <img src="./img/paihangbang.svg" alt="">
+                    <a href="#" id="paihang">排行榜</a>
                 </p>
             </div>
         </div>
@@ -65,5 +67,49 @@
     <script src="./layui/layui.js"></script>
     <script src="./swiper-7.4.1/swiper/swiper-bundle.min.js"></script>
     <script src="./js/index.js"></script>
+    <script>
+        // //渲染详情页
+        let params = new URLSearchParams(location.search)
+        console.log(params.get('id'));
+        async function par() {
+            try {
+                let parId = await axios({
+                    method: "get",
+                    url: 'http://localhost:3005/books',
+                    params: {
+                        id: `${params.get('id')}`,
+                    }
+                })
+                console.log(parId.data.data[0]);
+                let dataYObj =
+                    `
+        <img src="${parId.data.data[0].coverImg}" alt="">
+        <div id="details">
+            <div id="details-book" class="diap">
+                <p>书名:</p> &nbsp;
+                <span>${parId.data.data[0].name}</span>
+            </div>
+            <div id="details-author" class="diap">
+                <p>作者:</p> &nbsp;
+                <span>${parId.data.data[0].author}</span>
+            </div>
+            <div id="details-briefs" class="diap">
+                <p>简介:</p>&nbsp;
+                <span>${parId.data.data[0].desc}</span>
+            </div>
+            <div id="details-evaluate" class="diap">
+                <p>评价:</p> &nbsp;
+                <span>${parId.data.data[0].rate}</span>
+            </div>
+        </div>
+        `
+                $('#conset-details').append(dataYObj)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        par()
+    </script>
 </body>
+
 </html>

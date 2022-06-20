@@ -45,7 +45,7 @@ async function Lun() {
         // console.log(data);
         for (let i = 0; i < data.data.data.length; i++) {
             let LunObj =
-                `
+            `
             <div class="swiper-slide" id="Sw-content">
                 <a href="#"></a>
                 <img src="${data.data.data[i].coverImg}"alt="">
@@ -114,7 +114,6 @@ async function Ranking() {
             let RankingObj =
                 `
             <div id="books-Literature">
-                <a href="#"></a>
                 <img src="${data.data.data[i].coverImg}" alt="">
             </div>
             `
@@ -169,59 +168,33 @@ async function Ranking() {
 Ranking()
 
 //点击图片，跳转详情页页面
-async function xiang() {
+async function xiang(a,url) {
     try {
-        let { data: dataX } = await axios.get('http://localhost:3005/books')
+        // let { data: dataX } = await axios.get('http://localhost:3005/books')
+        let { data: dataX } = await axios({
+            method: "get",
+            url: url,
+            params: {
+                
+            }
+        })
+        // .get('http://localhost:3005/books')
         console.log(dataX.data);
-        for (let i = 0; i < dataX.data.length; i++) {
-            $('#Swip img').eq(i).click(() => {
-                window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/details.html'
-                dataXY()
-                async function dataXY(){
-                    console.log(dataX.data[i].id);
-                    let { data: dataY } = await axios({
-                        method: "get",
-                        url: "http://localhost:3005/books",
-                        params: {
-                            id: dataX.data[i].id,
-                        },
-                    })
-                    console.log(dataY.data[i].id);
-                    if (dataX.data[i].id==dataY.data[i].id) {
-                        //  window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/details.html'
-
-                         let dataYObj=
-                         `
-                         <img src="${dataY.data[i].coverImg}" alt="">
-                         <div id="details">
-                             <div id="details-book" class="diap">
-                                 <p>书名:</p> &nbsp;
-                                 <span>${dataY.data[i].name}</span>
-                             </div>
-                             <div id="details-author" class="diap">
-                                 <p>作者:</p> &nbsp;
-                                 <span>${dataY.data[i].author}</span>
-                             </div>
-                             <div id="details-briefs" class="diap">
-                                 <p>简介:</p>&nbsp;
-                                 <span>${dataY.data[i].desc}</span>
-                             </div>
-                             <div id="details-evaluate" class="diap">
-                                 <p>评价:</p> &nbsp;
-                                 <span>${dataY.data[i].rate}</span>
-                             </div>
-                         </div>
-                         `
-                         $('#conset-details').append(dataYObj)
-                    }
-                }
+        for(let i=0;i<dataX.data.length;i++){
+            $(a).eq(i).click(() =>{
+                console.log(dataX.data[i].id);
+                location.href = `details.html?id=${dataX.data[i].id}`
             })
         }
     } catch (error) {
         console.log(error);
     }
 }
-xiang()
+//轮播图渲染详情页
+xiang(('#Swip img'),'http://localhost:3005/books')
+//首页底部排行榜渲染详情页
+xiang(('#literature img'),'http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=5')
+
 
 //layui组件-------------------
 async function lay() {
