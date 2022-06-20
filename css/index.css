@@ -230,6 +230,7 @@ th .layui-table-cell {
     text-align: center;
     line-height: 40px;
     background-color: aqua;
+    display: none;
 }
 #conment-management{
     margin-top: 40px;
@@ -264,5 +265,30 @@ th .layui-table-cell {
 #details-briefs p{
     white-space: nowrap ;
 }
+.layui-btn-primary{
+    color: #656B79 !important;
+}
+/* 模态框 */
+.star {
+    position: relative;
+    left:30px;
+}
+
+#model,#add {
+    display      : none;
+    text-overflow: inherit;
+    white-space  : normal;
+    width        : 750px;
+}
+
+.layui-form-item {
+    padding-right: 40px;
+}
+
+#star {
+    position: relative;
+    top     : -3px;
+}
+
 
 

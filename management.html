@@ -16,18 +16,25 @@
     <div id="nav">
         <div id="nav-bar">
             <div id="nav-logo">三味书屋</div>
+            <!-- 鼠标聚焦input的显示的盒子 -->
+
+            <div class="boxInput"></div>
+            <!-- </div> -->
+
+            <!-- 按钮显示隐藏的盒子 -->
+            <div class="box"></div>
             <div id="nav-input">
-                <input type="text">
+                <input type="text" id="navInp" placeholder="请输入书名">
                 <button> <img src="./img/31sousuo.svg" alt=""></button>
             </div>
             <div id="nav-book">
                 <p id="books">
                     <img src="./img/shuji.svg" alt="">
-                    <p id="shuji"> 书籍管理</p>
+                    <span id="shuji"> 书籍管理</span>
                 </p>
                 <p id="rank">
                     <img src="./img/paihangbang.svg" alt="">
-                    <a href="#" id="paihang">排行榜</a>
+                    <span id="paihang">排行榜</span>
                 </p>
             </div>
         </div>
@@ -37,14 +44,52 @@
     <div id="conment-management">
         <div id="management">
             <div id="layui-button">
-                <button type="button" class="layui-btn  layui-btn-normal">新增</button>
+                <button type="button" class="layui-btn  layui-btn-normal" id="newAdd">新增</button>
                 <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
                 <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
                 <button class="layui-btn" data-type="isAll">验证是否全选</button>
             </div>
             <!-- 书籍管理表格 -->
-            <table class="layui-hide " id="test" lay-filter="demo" ></table>
-           
+            <table class="layui-hide " id="test" lay-filter="demo"></table>
+            <!-- 编辑和添加模态框 -->
+            <div id="model">
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">书名:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" required lay-verify="required" autocomplete="off"
+                                class="layui-input" id="titleinput">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">封面图:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" required lay-verify="required" autocomplete="off"
+                                class="layui-input" id="imgurl">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">作者:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" required lay-verify="required" autocomplete="off"
+                                class="layui-input" id="authorinput">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" id="pingfen">评分:</label>
+                        <div>
+                            <div id="test8" class="star" style="width: 400px;"></div>
+                            <span id="star"></span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">简介:</label>
+                        <div class="layui-input-block">
+                            <textarea name="desc" placeholder="请输入内容" class="layui-textarea" id="descinput"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <!-- 书籍管理排行榜返回顶部 -->
             <div id="ding">
                 顶部
@@ -52,7 +97,6 @@
         </div>
     </div>
 
-    
     <!--  底部footer -->
     <div id="footer">
         <div>

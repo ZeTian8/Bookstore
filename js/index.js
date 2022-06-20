@@ -208,33 +208,40 @@ xiang(('#Swip img'), 'http://localhost:3005/books')
 xiang(('#literature img'), 'http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=5')
 //搜索框渲染
 function sou() {
-    $('#nav-input button').click(async () => {
-        try {
-            let suoData = await axios({
-                method: "get",
-                url: 'http://localhost:3005/books',
-                params: {
-                    name_like: $('#navInp').val()
-                }
-            })
-            let suoObj =
-                `
+        $('#nav-input button').click(async () => {
+            try {
+                let suoData = await axios({
+                    method: "get",
+                    url: 'http://localhost:3005/books',
+                    params: {
+                        name_like: $('#navInp').val()
+                    }
+                })
+                let suoObj =
+                    `
             <a>${suoData.data.data[0].name} 作者：${suoData.data.data[0].author}</a>
             `
-            $('.boxInput').append(suoObj)
-            $('.boxInput').show()
-            xiang(('.boxInput'), `http://localhost:3005/books?name_like=${suoData.data.data[0].name}`)
-        } catch (error) {
-            console.log(error);
-        }
+                $('.boxInput').append(suoObj)
+                $('.boxInput').show()
+                xiang(('.boxInput'), `http://localhost:3005/books?name_like=${suoData.data.data[0].name}`)
+                $('.boxInput').click(() => {
+                    $('.boxInput').hide()
+                    $('#navInp').val('')
+                })
 
-    })
+            } catch (error) {
+                console.log(error);
+            }
+        })
 }
-
+sou()
 //layui组件-------------------
 async function lay() {
     try {
         let { data: layData } = await axios.get('http://localhost:3005/books?_page=1&_limit=10&_sort=id&_order=asc')
+        // $('#newAdd').click(()=>{
+        //     $('#model')
+        // })
         layui.use('table', function () {
             let table = layui.table;
             table.render({
@@ -324,7 +331,24 @@ async function lay() {
                     });
 
                 } else if (obj.event === 'edit') {
-                    layer.alert('编辑行：<br>' + JSON.stringify(data))
+                    layer.open({
+                        type: 1,
+                        content: $('#model') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+                    });
+                    layui.use('rate', function () {
+                        // console.log(d.rate);
+                        var rate = layui.rate;
+                        //渲染
+                        let obj = {}
+                        var ins1 = rate.render({
+                            elem: '.bookXing'  //绑定元素
+                            , length: 10//长度
+                            , text: true//开启分数显示
+                            , half: true//开启半星
+                            // , value: d.rate//初始值
+                            // , readonly: true//禁止修改
+                        });
+                    });
                 }
             });
 
@@ -349,6 +373,7 @@ async function lay() {
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
             });
+            
         });
 
 
@@ -360,17 +385,26 @@ async function lay() {
 lay()
 
 //书籍管理排行榜回到顶部
-function Din() {
-    $('#ding').click(function () {
-        window.scrollTo(0, 2000);
-        // 设置滚动行为改为平滑的滚动
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+$(document).ready(() => {
+    //开始监听滚动条
+    $(window).scroll(() => {
+        let top = $(document).scrollTop();
+        if (top >= 400) {
+            $('#ding').show()
+            $('#ding').click(() => {
+                window.scrollTo(0, 2000);
+                // 设置滚动行为改为平滑的滚动
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            })
+        } else {
+            $('#ding').hide()
+        }
     })
-}
-Din()
+})
+
 //书籍管理点击头部导航三味书屋回到主页
 function navLogoM() {
     //点击回到主页
