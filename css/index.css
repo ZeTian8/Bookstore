@@ -3,7 +3,7 @@
     padding: 0;
     outline-style: none
 }
-a{
+#nav a{
     text-decoration:none;
     color: aliceblue !important;
 }
@@ -269,10 +269,10 @@ th .layui-table-cell {
     color: #656B79 !important;
 }
 /* 模态框 */
-.star {
+/* .star {
     position: relative;
     left:30px;
-}
+} */
 
 #model,#add {
     display      : none;
@@ -281,9 +281,9 @@ th .layui-table-cell {
     width        : 750px;
 }
 
-.layui-form-item {
+/* .layui-form-item {
     padding-right: 40px;
-}
+} */
 
 #star {
     position: relative;
