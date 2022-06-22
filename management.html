@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>management书籍管理</title>
     <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/print.min.css">
     <link rel="stylesheet" href="./swiper-7.4.1/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="./layui/css/layui.css" media="all">
 </head>
-
 <body>
     <!-- 头部导航 -->
     <div id="nav">
@@ -45,9 +45,16 @@
         <div id="management">
             <div id="layui-button">
                 <button type="button" class="layui-btn  layui-btn-normal" id="newAdd">新增</button>
+                <button type="button" class="layui-btn  layui-btn-normal" id="daoAdd">导出</button>
+                <button type="button" class="layui-btn  layui-btn-normal" id="printAdd">打印</button>
             </div>
             <!-- 书籍管理表格 -->
-            <table class="layui-hide " id="test" lay-filter="demo"></table>
+            <table class="layui-hide tablePin " id="test"  lay-filter="demo">
+                <!-- <i class="layui-icon layui-icon-triangle-d" id="shuXia"></i>   
+                <i class="layui-icon layui-icon-triangle-d w" id="shuShang"></i>   
+                <i class="layui-icon layui-icon-triangle-d" id="pingXia"></i>   
+                <i class="layui-icon layui-icon-triangle-d w" id="pingShang"></i>    -->
+            </table>
             <!-- 分页 -->
             <div id="demo11"></div>
             <!-- 编辑和添加模态框 -->
@@ -105,6 +112,7 @@
     <script src="./js/jquery.js"></script>
     <script src="./layui/layui.js" charset="utf-8"></script>
     <script src="./swiper-7.4.1/swiper/swiper-bundle.min.js" charset="utf-8"></script>
+    <script src="./js/Execl.js"></script>
     <!-- 书籍管理查看编辑删除 -->
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
@@ -112,6 +120,7 @@
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
    </script>
     <script src="./js/axios.js"></script>
+    <script src="./js/print.min.js"></script>
     <script src="./js/index.js"></script>
 </body>
 

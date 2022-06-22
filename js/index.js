@@ -1,47 +1,7 @@
-// //首页头部搜索框
-// async function suo(){
-// //鼠标聚焦
-// $('#nav-input button').click(() => {
-//     // alert(111)
-//     // $('.boxInput').show()
-//     async function suo() {
-//         try {
-//             let { data:suoData } = await axios({
-//                 method: "get",
-//                 url: "http://localhost:3005/books",
-//                 params: {
-//                     name_like: $("#nav-input").val(),
-//                 },
-//             })
-//             console.log(suoData.data);
-//             $('.boxInput').text($('#navInp').val())
-
-
-//             // for(let i=0;i<suoData.length;i++){
-//             //     console.log(suoData);
-//             //     let suoObj=
-//             //     `<div>
-//             //         <p>${suoData[i].name}</p> &nbsp;&nbsp;
-//             //         <span>作者:
-//             //             <span>${suoData[i].author}</span>
-//             //         </span>
-//             //     </div>
-//             //     `
-//             //     $('.boxInput').append(suoObj)
-//             // }
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
-//     // suo()
-// })
-// }
-
-
 //轮播图数据接口
 async function Lun() {
     try {
-        let data = await axios.get('http://localhost:3005/books')
+        let data = await axios.get('http://localhost:3005/books?_limit=12')
         // console.log(data);
         for (let i = 0; i < data.data.data.length; i++) {
             let LunObj =
@@ -100,9 +60,6 @@ function hua() {
     })
 }
 hua()
-
-
-
 //首页下方排行榜接口,鼠标移入移出搜索按钮，显示隐藏
 async function Ranking() {
 
@@ -182,7 +139,6 @@ Ranking()
 //点击图片，跳转详情页页面
 async function xiang(a, url) {
     try {
-        // let { data: dataX } = await axios.get('http://localhost:3005/books')
         let { data: dataX } = await axios({
             method: "get",
             url: url,
@@ -190,7 +146,7 @@ async function xiang(a, url) {
 
             }
         })
-        // console.log(dataX.data);
+        console.log(dataX.data);
         for (let i = 0; i < dataX.data.length; i++) {
             $(a).eq(i).click(() => {
                 location.href = `details.html?id=${dataX.data[i].id}`
@@ -234,89 +190,83 @@ function sou() {
     })
 }
 sou()
-//layui组件---表格渲染---事件---新增----------
+//layui组件---分页---表格渲染---事件(删除编辑查看)---新增----数据渲染------
+//分页
 async function lay() {
     try {
-        let { data: layDataPage } = await axios.get('http://localhost:3005/books?')
+        let { data: layDataPage } = await axios.get('http://localhost:3005/books')
         layui.use('table', function () {
             let table = layui.table;
             //监听分页
-            function fenye() {
-                layui.use(['laypage', 'layer'], function () {
-                    var laypage = layui.laypage
-                        , layer = layui.layer;
-                    //不显示首页尾页
-                    laypage.render({
-                        elem: 'demo11'
-                        , count: layDataPage.data.length//获取后台数据
-                        , first: false//上一页
-                        , last: false//下一页
-                        , limit: 5//每页个数
-                        , limits: [5, 10, 20]
-                        , layout: ['count', 'limit', 'prev', 'page', 'next']//选择每页的条数
-                        , jump: async function (obj) {
-                            // console.log(obj.limit, obj.curr)
-                            let { data: layData } = await axios.get(`http://localhost:3005/books?_page=${obj.curr}&_limit=${obj.limit}&_sort=id&_order=asc`)
-                            // console.log(layData.data);
-                            table.render({
-                                elem: '#test'
-                                , toolbar: true
-                                , title: '用户数据表'
-                                , height: 690//总行高
-                                , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-                                , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-                                    title: '提示'
-                                    , layEvent: 'LAYTABLE_TIPS'
-                                    , icon: 'layui-icon-tips'
-                                }]
-                                //数据内容
-                                , cols: [[
-                                    { type: 'checkbox', fixed: 'left' },
-                                    { field: 'name', width: 120, title: '书名', sort: true, }
-                                    , {
-                                        //图片
-                                        field: 'coverImg', title: '封面图', width: 120,
-                                        edit: 'test', templet: function (d) {
-                                            return `<img src=" ${d.coverImg}" alt="">`
-                                        }
+            layui.use(['laypage', 'layer'], function () {
+                var laypage = layui.laypage
+                    , layer = layui.layer;
+                //不显示首页尾页
+                laypage.render({
+                    elem: 'demo11'
+                    , count: layDataPage.data.length//获取后台数据
+                    , first: false//上一页
+                    , last: false//下一页
+                    , limit: 5//每页个数
+                    , limits: [5, 10, 20]
+                    , layout: ['count', 'limit', 'prev', 'page', 'next']//选择每页的条数
+                    , jump: async function (obj) {
+                        // console.log(obj.limit, obj.curr)
+                        let { data: layData } = await axios.get(`http://localhost:3005/books?_page=${obj.curr}&_limit=${obj.limit}&_sort=id&_order=asc`)
+                        // console.log(layData.data);
+                        table.render({
+                            elem: '#test'
+                            , toolbar: true
+                            ,autoSort: false
+                            , title: '用户数据表'
+                            , height: 690//总行高
+                            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+                            //数据内容
+                            , cols: [[
+                                { field: 'name', width: 120, title: '书名', sort: true, }
+                                , {
+                                    //图片
+                                    field: 'coverImg', title: '封面图', width: 120,
+                                    edit: 'test', templet: function (d) {
+                                        return `<img src=" ${d.coverImg}" alt="">`
                                     }
-                                    , { field: 'author', width: 80, title: '作者', }
-                                    , { field: 'desc', title: '简介', minWidth: 150, }
-                                    , {
-                                        field: 'tate', title: '评分', sort: true,
-                                        templet: function (d) {
-                                            let index = d.LAY_INDEX;
-                                            layui.use('rate', function () {
-                                                // console.log(d.rate);
-                                                var rate = layui.rate;
-                                                //渲染
-                                                let obj = {}
-                                                var ins1 = rate.render({
-                                                    elem: '.bookXing' + index  //绑定元素
-                                                    , length: 10//长度
-                                                    , text: true//开启分数显示
-                                                    , half: true//开启半星
-                                                    , value: d.rate//初始值
-                                                    , readonly: true//禁止修改
-                                                });
-                                            });
-                                            index++;
-                                            return `<div class = "bookXing${index}"></div>`
-                                        }
-                                    }
-                                    , { field: 'experience', width: 180, title: '操作', toolbar: '#barDemo' }
-
-                                ]]
-                                , response: {
-                                    statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
                                 }
-                                , data: layData.data
-                            });
-                        }
-                    });
-                })
-            }
-            fenye()
+                                , { field: 'author', width: 80, title: '作者', }
+                                , { field: 'desc', title: '简介', minWidth: 150, }
+                                , {
+                                    field: 'tate', title: '评分', sort: true,
+                                    templet: function (d) {
+                                        let index = d.LAY_INDEX;
+                                        layui.use('rate', function () {
+                                            // console.log(d.rate);
+                                            var rate = layui.rate;
+                                            //渲染
+                                            let obj = {}
+                                            var ins1 = rate.render({
+                                                elem: '.bookXing' + index  //绑定元素
+                                                , length: 10//长度
+                                                , text: true//开启分数显示
+                                                , half: true//开启半星
+                                                , value: d.rate//初始值
+                                                , readonly: true//禁止修改
+                                            });
+                                        });
+                                        index++;
+                                        return `<div class = "bookXing${index}"></div>`
+                                    }
+                                }
+                                , { field: 'experience', width: 180, title: '操作', toolbar: '#barDemo' }
+
+                            ]]
+                            , response: {
+                                statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+                            }
+                            , data: layData.data
+                        });
+
+                    }
+                });
+            })
             $('.demoTable .layui-btn').on('click', function () {
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
@@ -327,15 +277,17 @@ async function lay() {
     }
 }
 lay()
-//事件删除，查看，渲染
+//表格事件删除，查看，编辑渲染
 function shijian() {
     layui.use('table', function () {
         let table = layui.table;
         table.on('tool(demo)', async function (obj) {
             var data = obj.data;
-            if (obj.event === 'detail') {
-                xiang(('.layui-btn-primary'), 'http://localhost:3005/books')
-            } else if (obj.event === 'del') {
+            xiang(('.layui-btn-primary'), 'http://localhost:3005/books')
+            // if (obj.event === 'detail') {
+                
+            // } else 
+            if (obj.event === 'del') {//删除
 
                 layer.confirm('确定删除这本书吗?', function (index) {
                     axios.delete('http://localhost:3005/books/'
@@ -347,14 +299,14 @@ function shijian() {
                     layer.close(index);
                 });
 
-            } else if (obj.event === 'edit') {
+            } else if (obj.event === 'edit') {//编辑
                 console.log(data);
                 $('#titleinput').val(data.name);
                 $('#imgurl').val(data.coverImg);
                 $('#authorinput').val(data.author);
                 $('#descinput').val(data.desc);
                 let value = data.rate
-                console.log($('#imgurl').val());
+                // console.log($('#imgurl').val());
                 layui.use('rate', function () {//评分星星
                     var rate = layui.rate;
                     //渲染
@@ -419,6 +371,8 @@ function xinzneg() {
             area: ['800px', '350px'], //自定义文本域宽高
             yes: function (index, layero) {
                 let startTxt = +$('.star').text().substr(0, $('.star').text().length - 1)
+                startTxt=startTxt.toString()
+                console.log(typeof startTxt);
                 $.ajax({
                     url: 'http://localhost:3005/books',//传地址
                     method: 'post',
@@ -441,6 +395,112 @@ function xinzneg() {
     })
 }
 xinzneg()
+//排序
+layui.use('table',function () {
+    let table = layui.table;
+    table.on('sort(demo)', async function (obj) {
+      console.log(obj.field,obj.type);
+      if (obj.field=='name'&&obj.type=='asc') {
+        let { data: bookSort } = await axios.get('http://localhost:3005/books/')
+        shuju(bookSort, 'id', 'asc')
+      }
+      if (obj.field=='name'&&obj.type=='desc') {
+        let { data: bookSort } = await axios.get('http://localhost:3005/books/')
+        shuju(bookSort, 'id', 'desc')
+      }
+      if (obj.field=='tate'&&obj.type=='asc') {
+        let { data: bookSort } = await axios.get('http://localhost:3005/books/')
+        shuju(bookSort, 'rate', 'asc')
+      }
+      if (obj.field=='tate'&&obj.type=='desc') {
+        let { data: bookSort } = await axios.get('http://localhost:3005/books/')
+        shuju(bookSort, 'rate', 'desc')
+      }
+    })
+})
+//数据封装,SJData(接口数据)，FS(根据何种方式排序)，ZF(正反顺序)
+function shuju(SJData, FS, ZF) {
+    layui.use('table', function () {
+        let table = layui.table;
+        //监听分页
+        // function fenye() {
+        layui.use(['laypage', 'layer'], function () {
+            var laypage = layui.laypage
+                , layer = layui.layer;
+            //不显示首页尾页
+            laypage.render({
+                elem: 'demo11'
+                , count: SJData.data.length//获取后台数据
+                , first: false//上一页
+                , last: false//下一页
+                , limit: 5//每页个数
+                , limits: [5, 10, 20]
+                , layout: ['count', 'limit', 'prev', 'page', 'next']//选择每页的条数
+                , jump: async function (obj) {
+                    // console.log(obj.limit, obj.curr)
+                    let { data: SJData } = await axios.get(`http://localhost:3005/books?_page=${obj.curr}&_limit=${obj.limit}&_sort=${FS}&_order=${ZF}`)
+                    // console.log(layData.data);
+                    table.render({
+                        elem: '#test'
+                        , autoSort: false
+                        , toolbar: true
+                        , title: '三味书屋'
+                        , height: 690//总行高
+                        , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+                        //数据内容
+                        , cols: [[
+                            { field: 'name', width: 120, title: '书名', sort: true, }
+                            , {
+                                //图片
+                                field: 'coverImg', title: '封面图', width: 120,
+                                edit: 'test', templet: function (d) {
+                                    return `<img src=" ${d.coverImg}" alt="">`
+                                }
+                            }
+                            , { field: 'author', width: 80, title: '作者', }
+                            , { field: 'desc', title: '简介', minWidth: 150, }
+                            , {
+                                field: 'tate', title: '评分', sort: true,
+                                templet: function (d) {
+                                    let index = d.LAY_INDEX;
+                                    layui.use('rate', function () {
+                                        // console.log(d.rate);
+                                        var rate = layui.rate;
+                                        //渲染
+                                        let obj = {}
+                                        var ins1 = rate.render({
+                                            elem: '.bookXing' + index  //绑定元素
+                                            , length: 10//长度
+                                            , text: true//开启分数显示
+                                            , half: true//开启半星
+                                            , value: d.rate//初始值
+                                            , readonly: true//禁止修改
+                                        });
+                                    });
+                                    index++;
+                                    return `<div class = "bookXing${index}"></div>`
+                                }
+                            }
+                            , { field: 'experience', width: 180, title: '操作', toolbar: '#barDemo' }
+
+                        ]]
+                        , response: {
+                            statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+                        }
+                        , data: SJData.data
+                    });
+
+                }
+            });
+        })
+        // }
+        // fenye()
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+}
 
 //书籍管理排行榜回到顶部
 $(document).ready(() => {
@@ -477,12 +537,103 @@ function navLogoM() {
     })
     $('#rank').click(function () {
         alert(11)
-        window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/details.html'
+        window.location.href = 'pai.html'
     })
 }
 navLogoM()
 
+/* 导出第一步 */
+// 将一个sheet转成最终的excel文件的blob对象，然后利用URL.createObjectURL下载
+function sheet2blob(sheet, sheetName) {
+    sheetName = sheetName || 'sheet1';
+    var workbook = {
+        SheetNames: [sheetName],
+        Sheets: {}
+    };
+    workbook.Sheets[sheetName] = sheet;
+    // 生成excel的配置项
+    var wopts = {
+        bookType: 'xlsx', // 要生成的文件类型
+        bookSST: false, // 是否生成Shared String Table，官方解释是，如果开启生成速度会下降，但在低版本IOS设备上有更好的兼容性
+        type: 'binary'
+    };
+    var wbout = XLSX.write(workbook, wopts);
+    var blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
+    // 字符串转ArrayBuffer
+    function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+    }
+    return blob;
+}
+/* 导出第二步 */
+/**
+ * 通用的打开下载对话框方法，没有测试过具体兼容性
+ * @param url 下载地址，也可以是一个blob对象，必选
+ * @param saveName 保存文件名，可选
+ */
+function openDownloadDialog(url, saveName) {
+    if (typeof url == 'object' && url instanceof Blob) {
+        url = URL.createObjectURL(url); // 创建blob地址
+    }
+    var aLink = document.createElement('a');
+    aLink.href = url;
+    aLink.download = saveName || ''; // HTML5新增的属性，指定保存文件名，可以不要后缀，注意，file:///模式下不会生效
+    var event;
+    if (window.MouseEvent) event = new MouseEvent('click');
+    else {
+        event = document.createEvent('MouseEvents');
+        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    }
+    aLink.dispatchEvent(event);
+}
+//  openDownloadDialog(url, saveName)
+/* 导出第三步 */
+//导出,点击获取数据，将数据依次放进二维数组、
+var aoa = []
+$('#daoAdd').click(() => {
+    var aoa = [
+        ['书名', '封面图', '作者', '简介', '评分'],
+    ];
+    async function execl() {
+        try {
+            let { data: execlBook } = await axios.get('http://localhost:3005/books/')
+            // console.log(execlBook.data);
+            execlBook.data.forEach((item) => {
+                aoa.push([item.name, item.coverImg, item.author, item.desc, item.rate])
+            });
+            var sheet = XLSX.utils.aoa_to_sheet(aoa);
+            openDownloadDialog(sheet2blob(sheet), '三味书屋.xlsx');
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    execl()
+
+})
+
+//打印
+$('#printAdd').click(() => {
+    $('.layui-table-box').attr('id', 'printTable')
+    console.log($('#printTable'));
+    printJS(
+        {
+            // pdf或图像的url，html元素的id或json数据的对象
+            printable: 'printTable',
+            // 设置打印类型 pdf，html，image，json和raw-html
+            type: 'html',
+            // css: '../layui/css/layui.css',
+            css: ['../css/index.css', '../layui/css/layui.css'],
+            // 最大文档宽度（像素）。根据需要更改此项。在打印HTML，图像或JSON时使用。
+            // maxWidth: 600,
+            // maxHeight: 800,
+            // scanStyles:true,
+            // 这允许我们传递一个字符串，该字符串应该应用于正在打印的html。
+            // style:'color:red;font-size:50px'
+        }
+    )
 
 
-
-
+})

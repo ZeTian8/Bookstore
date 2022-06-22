@@ -209,11 +209,42 @@
 .layui-table-cell{
     height: 100px !important;
     line-height: 100px !important;
+    overflow-x: hidden;
 }
 th .layui-table-cell {
     height: 30px !important;
     line-height: 30px !important;
+    text-align: center !important;
 }
+.layui-table-header{
+    position: relative;
+}
+/* #shuXia{
+    position: absolute;
+    top: 216px;
+    left: 170px;
+    z-index: 1;
+}
+#shuShang{
+    position: absolute;
+    top: 205px;
+    left: 170px;
+    z-index: 1;
+    transform: rotateX(180deg);
+} */
+/* #pingXia{
+    position: absolute;
+    top: 216px;
+    left: 936px;
+    z-index: 1;
+}
+#pingShang{
+    position: absolute;
+    top: 205px;
+    left: 936px;
+    z-index: 1;
+    transform: rotateX(180deg);
+} */
 /* .layui-table img{
     width: 100px !important;
     height: 100px !important;
