@@ -62,7 +62,6 @@ function hua() {
 hua()
 //首页下方排行榜接口,鼠标移入移出搜索按钮，显示隐藏
 async function Ranking() {
-
     try {
         let data = await axios.get('http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=5')
         // console.log(data);
@@ -75,60 +74,6 @@ async function Ranking() {
             </div>
             `
             $('#literature').append(RankingObj)
-
-            //鼠标点击搜索按钮，显示隐藏
-
-            // $('#navInp').focus(function(){
-            //     if (!$('#navInp').val('')) {
-            //         $('#nav-input button').click(() =>{
-            //             console.log(111);
-            //         })
-
-            //     }else{
-            //         $('#nav-input button').click(() =>{
-            //             console.log(222);
-            //         })
-            //     }
-            // })
-
-
-
-            // if ($('#navInp').val('')) {
-            // $('#nav-input button').click(() => {
-            //     // $('.boxInput').show()
-            //     let { data: suoData } = await axios({
-            //         method: "get",
-            //         url: "http://localhost:3005/books",
-            //         params: {
-            //             name_like: $("#navInp").val(),
-            //         },
-            //     })
-            //     console.log(suoData.data);
-            //     $('.boxInput').text($('#navInp').val())
-
-            // })
-            // } else if ($('#navInp').val()) {
-            // $('#nav-input button').click(() => {
-            //     $('.box').css('display', 'block')
-            //     let suoObj =
-            //         `<div>
-            //             <p>${data.data.data[i].name}</p> &nbsp;&nbsp;
-            //             <span>作者:
-            //                 <span>${data.data.data[i].author}</span>
-            //             </span>
-            //         </div>
-            //         `
-            //     $('.box').append(suoObj)
-            // })
-            // //鼠标移出搜索按钮
-            // $('#nav-input button').mouseleave(() => {
-            //     setTimeout(() => {
-            //         $('.box').hide()
-            //         $('.box').empty()
-            //     }, 200)
-            // })
-            // }
-
         }
     } catch (error) {
         console.log(error);
@@ -160,7 +105,7 @@ async function xiang(a, url) {
 xiang(('#Swip img'), 'http://localhost:3005/books')
 //首页底部排行榜渲染详情页
 xiang(('#literature img'), 'http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=5')
-
+xiang(('.laytable-cell-1-0-5 .layui-btn-primary'), 'http://localhost:3005/books')
 //搜索框渲染
 function sou() {
     $('#nav-input button').click(async () => {
@@ -174,7 +119,7 @@ function sou() {
             })
             let suoObj =
                 `
-            <a>${suoData.data.data[0].name} 作者：${suoData.data.data[0].author}</a>
+            <a style="color:black !important;">${suoData.data.data[0].name} 作者：${suoData.data.data[0].author}</a>
             `
             $('.boxInput').append(suoObj)
             $('.boxInput').show()
@@ -217,7 +162,7 @@ async function lay() {
                         table.render({
                             elem: '#test'
                             , toolbar: true
-                            ,autoSort: false
+                            ,autoSort: false//关闭自带前端排序
                             , title: '用户数据表'
                             , height: 690//总行高
                             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
@@ -238,16 +183,19 @@ async function lay() {
                                     templet: function (d) {
                                         let index = d.LAY_INDEX;
                                         layui.use('rate', function () {
-                                            // console.log(d.rate);
+                                            console.log('22222222',d.rate);
                                             var rate = layui.rate;
                                             //渲染
                                             let obj = {}
+
+                                            let irate = parseFloat(d.rate)-parseInt(d.rate)>0.5?parseInt(d.rate):parseFloat(d.rate);
+                                            console.log(parseFloat(d.rate),parseInt(d.rate));
                                             var ins1 = rate.render({
                                                 elem: '.bookXing' + index  //绑定元素
                                                 , length: 10//长度
                                                 , text: true//开启分数显示
                                                 , half: true//开启半星
-                                                , value: d.rate//初始值
+                                                , value:irate//初始值
                                                 , readonly: true//禁止修改
                                             });
                                         });
@@ -263,6 +211,9 @@ async function lay() {
                             }
                             , data: layData.data
                         });
+                        table.reload('demo',{
+                            initSort: obj, 
+                        })
 
                     }
                 });
@@ -283,12 +234,10 @@ function shijian() {
         let table = layui.table;
         table.on('tool(demo)', async function (obj) {
             var data = obj.data;
-            xiang(('.layui-btn-primary'), 'http://localhost:3005/books')
             // if (obj.event === 'detail') {
                 
             // } else 
             if (obj.event === 'del') {//删除
-
                 layer.confirm('确定删除这本书吗?', function (index) {
                     axios.delete('http://localhost:3005/books/'
                         + data.id).then(data => {
@@ -371,8 +320,7 @@ function xinzneg() {
             area: ['800px', '350px'], //自定义文本域宽高
             yes: function (index, layero) {
                 let startTxt = +$('.star').text().substr(0, $('.star').text().length - 1)
-                startTxt=startTxt.toString()
-                console.log(typeof startTxt);
+                console.log('---------->',startTxt);
                 $.ajax({
                     url: 'http://localhost:3005/books',//传地址
                     method: 'post',
@@ -442,7 +390,7 @@ function shuju(SJData, FS, ZF) {
                     // console.log(layData.data);
                     table.render({
                         elem: '#test'
-                        , autoSort: false
+                        , autoSort: false//关闭自带前端排序
                         , toolbar: true
                         , title: '三味书屋'
                         , height: 690//总行高
@@ -473,7 +421,7 @@ function shuju(SJData, FS, ZF) {
                                             , length: 10//长度
                                             , text: true//开启分数显示
                                             , half: true//开启半星
-                                            , value: d.rate//初始值
+                                            , value: +d.rate//初始值
                                             , readonly: true//禁止修改
                                         });
                                     });
@@ -527,16 +475,13 @@ $(document).ready(() => {
 function navLogoM() {
     //点击回到主页
     $('#nav-logo').click(function () {
-        alert(11)
         window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/index.html'
     })
     //点击回到书籍管理页
     $('#nav-book #books').click(function () {
-        alert(11)
         window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E9%87%8F%E5%AD%90%E9%A1%B9%E7%9B%AE/pc%E7%AB%AF%E9%A1%B9%E7%9B%AE/%E4%B8%89%E5%91%B3%E4%B9%A6%E5%B1%8B/management.html'
     })
     $('#rank').click(function () {
-        alert(11)
         window.location.href = 'pai.html'
     })
 }
