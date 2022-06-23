@@ -465,7 +465,7 @@ $(document).ready(() => {
     //开始监听滚动条
     $(window).scroll(() => {
         let top = $(document).scrollTop();
-        if (top >= 400) {
+        if (top >= 800) {
             $('#ding').show()
             $('#ding').click(() => {
                 window.scrollTo(0, 2000);
